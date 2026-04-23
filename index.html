@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokémon Birthday Invite</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffcb05, #3b4cca);
+  }
+
+  h1 {
+    margin-top: 60px;
+    color: white;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    width: 85%;
+    max-width: 350px;
+    margin: 20px auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  .yes {
+    background: #4CAF50;
+    color: white;
+  }
+
+  .no {
+    background: #f44336;
+    color: white;
+    position: absolute;
+  }
+
+  /* Floating pokeballs */
+  .pokeball {
+    position: absolute;
+    width: 40px;
+    animation: float 6s linear infinite;
+  }
+
+  @keyframes float {
+    from {
+      transform: translateY(100vh);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<h1>⚡ Pokémon Birthday Party ⚡</h1>
+
+<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" width="120">
+
+<div class="card">
+  <p><strong>Trainer:</strong> YOUR NAME</p>
+  <p><strong>Date:</strong> July 20</p>
+  <p><strong>Time:</strong> 3:00 PM</p>
+  <p><strong>Location:</strong> Your House</p>
+</div>
+
+<h2 style="color:white;">Will you join the adventure?</h2>
+
+<button class="yes" onclick="sayYes()">Yes!</button>
+<button class="no" id="noBtn">No</button>
+
+<!-- Sound -->
+<audio id="sound" src="https://www.myinstants.com/media/sounds/pokemon-capture.mp3"></audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+// Move button (mobile + desktop)
+function moveButton() {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// YES action
+function sayYes() {
+  document.getElementById("sound").play();
+
+  document.body.innerHTML = `
+    <h1 style="color:white;margin-top:100px;">
+      🎉 YOU'RE IN! 🎉<br><br>
+      Get ready to catch 'em all!
+    </h1>
+  `;
+
+  launchConfetti();
+}
+
+// Confetti effect
+function launchConfetti() {
+  for (let i = 0; i < 25; i++) {
+    let ball = document.createElement("img");
+    ball.src = "https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg";
+    ball.className = "pokeball";
+    ball.style.left = Math.random() * 100 + "vw";
+    ball.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(ball);
+  }
+}
+</script>
+
+</body>
+</html>
